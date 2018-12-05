@@ -1,6 +1,6 @@
 # Udacity Deep Learning Nanodegree
 
- > Udacity Deep Learning Nanodegree projects and study notes.&nbsp;
+ > Udacity Deep Learning Nanodegree projects and study notes.
 
  　 　　
  
