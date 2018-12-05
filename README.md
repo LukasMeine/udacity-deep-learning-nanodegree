@@ -1,4 +1,5 @@
 # Udacity Deep Learning Nanodegree
-![udacity](https://user-images.githubusercontent.com/20716798/49513197-56736580-f877-11e8-9411-9639c4ca9d42.png)
+
+![udacity2](https://user-images.githubusercontent.com/20716798/49513726-14e3ba00-f879-11e8-862a-9c5d11ae8395.png)
 
  > Udacity Deep Learning Nanodegree projects and study notes.
