@@ -3,13 +3,14 @@
 # Udacity Deep Learning Nanodegree
 > Udacity Deep Learning Nanodegree projects and study notes.
 　 　　　
-     　 　　　
+　 　　　
+　 　　　     
 ## Purpose of this repository
 
 The purpose of this repository is to catalogue all the information that i will gather while attending to the nanodegree. Also, i will have to do some projects in order to graduate, and they will be published here too.
-　 　　 　　　
 　 　　　
-     　 　　　
+　 　　　
+　 　　　
 ## What is a Nanodegree?　
 
 A Nanodegree is a course offered by Udacity, where students can graduate and receive a certificate at the end. 
