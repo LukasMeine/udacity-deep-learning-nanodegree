@@ -1,3 +1,4 @@
 # We dont want these huge datasets commited into git, do we?
 dog-project/dogImages
 dog-project/lfw
+face_generation/data
