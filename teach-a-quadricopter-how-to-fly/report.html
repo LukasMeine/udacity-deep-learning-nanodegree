@@ -13797,6 +13797,75 @@ div#notebook {
 <p>I have used the Deep Deterministic Policy Gradients algorithm, as suggested on the lessons following the project at udacity. I also have used a lot of the code provided there. For reference: <a href="https://classroom.udacity.com/nanodegrees/nd101/parts/ddbdc5e1-365e-44d1-a627-09ddfc6fb20e/modules/691b7845-f7d8-413d-90c7-971cd5016b5c/lessons/59bb1390-5b49-437f-9f43-27496091774a/concepts/d254347a-68f4-47d0-912a-33fd79719cf8">https://classroom.udacity.com/nanodegrees/nd101/parts/ddbdc5e1-365e-44d1-a627-09ddfc6fb20e/modules/691b7845-f7d8-413d-90c7-971cd5016b5c/lessons/59bb1390-5b49-437f-9f43-27496091774a/concepts/d254347a-68f4-47d0-912a-33fd79719cf8</a></p>
 <p>The algorithm looks adequate because this is a continuous task.</p>
 <p>For the architectures, i made some customizations on the sample networks provided. I added some extra layers, dropouts and batch normalizations.</p>
+<h2 id="Reviewer-feedback">Reviewer feedback<a class="anchor-link" href="#Reviewer-feedback">&#182;</a></h2><blockquote><p>Você precisa descrever a arquitetura usada na rede neural. Você precisa ser mais específico, quantas camadas, qual tamanho, quais funções de ativação?</p>
+</blockquote>
+<p>Ok, i will dive deeper here. My starting point was the neural networks that were supplied on your examples. One for the Actor, and one for the critic. Both follows:</p>
+<h3 id="Actor-(policy)-network">Actor (policy) network<a class="anchor-link" href="#Actor-(policy)-network">&#182;</a></h3>
+<pre><code>    net = layers.Dense(units=32, activation='relu')(states)
+    net = layers.Dense(units=64, activation='relu')(net)
+    net = layers.Dense(units=32, activation='relu')(net)
+
+</code></pre>
+<h3 id="Critic-(value)-network">Critic (value) network<a class="anchor-link" href="#Critic-(value)-network">&#182;</a></h3>
+<pre><code>    # Add hidden layer(s) for state pathway
+    net_states = layers.Dense(units=32, activation='relu')(states)
+    net_states = layers.Dense(units=64, activation='relu')(net_states)
+
+    # Add hidden layer(s) for action pathway
+    net_actions = layers.Dense(units=32, activation='relu')(actions)
+    net_actions = layers.Dense(units=64, activation='relu')(net_actions)
+
+
+</code></pre>
+<p>With that in mind, my intention was just to add a couple more layers, some dropous and batch normalizations, not going too much farther away from the starting point. The final result follows:</p>
+<h3 id="Actor-(Policy)-Model.">Actor (Policy) Model.<a class="anchor-link" href="#Actor-(Policy)-Model.">&#182;</a></h3>
+<pre><code>    net = layers.Dense(units=32, activation='relu')(states)
+    net = layers.BatchNormalization()(net)
+    net = layers.Dropout(0.5)(net)
+    net = layers.Dense(units=64, activation='relu')(net)
+    net = layers.BatchNormalization()(net)
+    net = layers.Dropout(0.5)(net)
+    net = layers.Dense(units=128, activation='relu')(net)
+    net = layers.BatchNormalization()(net)
+    net = layers.Dropout(0.5)(net)
+    net = layers.Dense(units=64, activation='relu')(net)
+    net = layers.BatchNormalization()(net)
+    net = layers.Dropout(0.5)(net)
+
+
+</code></pre>
+<h3 id="Critic-(value)-network">Critic (value) network<a class="anchor-link" href="#Critic-(value)-network">&#182;</a></h3>
+<pre><code>    # Add hidden layer(s) for state pathway
+    net_states = layers.Dense(units=32, activation='relu')(states)
+    net_states = layers.BatchNormalization()(net_states)
+    net_states = layers.Dropout(0.5)(net_states)
+    net_states = layers.Dense(units=64, activation='relu')(net_states)
+    net_states = layers.BatchNormalization()(net_states)
+    net_states = layers.Dropout(0.5)(net_states)
+    net_states = layers.Dense(units=128, activation='relu')(net_states)
+    net_states = layers.BatchNormalization()(net_states)
+    net_states = layers.Dropout(0.5)(net_states)
+
+    # Add hidden layer(s) for action pathway
+    net_actions = layers.Dense(units=32, activation='relu')(actions)
+    net_actions = layers.BatchNormalization()(net_actions)
+    net_actions = layers.Dropout(0.5)(net_actions)
+    net_actions = layers.Dense(units=64, activation='relu')(net_actions)
+    net_actions = layers.BatchNormalization()(net_actions)
+    net_actions = layers.Dropout(0.5)(net_actions)
+    net_actions = layers.Dense(units=128, activation='relu')(net_actions)
+    net_actions = layers.BatchNormalization()(net_actions)
+    net_actions = layers.Dropout(0.5)(net_actions)
+
+</code></pre>
+<p>As you can see there weren't many changes here, and the final architecture follows:</p>
+<ul>
+<li><p>The Actor (Policy) network uses four hidden, dense layers with sizes 32,64,128 and 64 with relu activations. As i have said before, i also included dropouts and batch normalizations to increase stability and the dropouts mostly because i like chaos engineering, and the idea of turning some nodes off randomly makes me feel happy. May not have been a wise choice, but whatever.</p>
+</li>
+<li><p>Ok, on the Critic (value) network i followed pretty much the same idea. But this time, i have used three dense, hidden layers with sizes 32,64,128 with relu activations for the state pathway and the exact same thing for the action pathway. Dropous and batch activations were also included for the same reason as above.</p>
+</li>
+</ul>
+<p>Hope that is enough explanation :)</p>
 
 </div>
 </div>
@@ -13812,6 +13881,17 @@ div#notebook {
 </ul>
 <p><strong>Answer</strong>:</p>
 <p>The reward started to stabilize more or less at episode 600 (on the second time i ran the code, it happened at episode 670), where it reached it's peak, then dropped a little then went up again to the same point and stayed there for the following episodes. That said, it leads me to think that 900 ~ 1000 is the most adequate number of episodes. But maybe we could achieve similar results with 600 ~ 700 episodes. I need more tests to affirm that.</p>
+<h2 id="Reviewer-Feedback">Reviewer Feedback<a class="anchor-link" href="#Reviewer-Feedback">&#182;</a></h2><blockquote><p>"Faltou responder qual a performance final do algoritmo, com números."</p>
+</blockquote>
+<p>This question is <em>kinda</em> already answered. if you check my plot function, you will be able to see my final performance there,
+i just forgot to mention it here on the answer, my bad ;)</p>
+<blockquote><p>final_performance = np.mean(rewards[-10:])</p>
+</blockquote>
+<p>and the final performance was:</p>
+<blockquote><p>190.97314713874007</p>
+</blockquote>
+<p>Hope that is enough ;)</p>
+<p>And just a final touch to the answer, my final performance got really better after i made some changes to the reward function. My first results were below zero with the function that was available on the task supplied by udacity. The better results came with a trial and error effort, but my best results came after using the numpy tangent function, lowering the constant and then clipping the rewards.</p>
 
 </div>
 </div>
