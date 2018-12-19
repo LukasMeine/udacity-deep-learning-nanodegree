@@ -28,4 +28,6 @@ adversarial networks for image generation, and learn how to deploy models.
 
 ## Graduation
 
+I just graduated at this nanodegree! It was an awesome experience and I definately recomend it to anyone who wants to get deeper in this field of knowledge.
+
 ![certificado](https://user-images.githubusercontent.com/20716798/50226305-05409700-038a-11e9-9d01-df7bf4adfcfa.jpeg)
